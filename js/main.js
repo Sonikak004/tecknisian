@@ -69,6 +69,58 @@ function openCheckout() {
     if(mockupModal) mockupModal.classList.add('open');
   }, 300);
 }
+
+// ====== FORMSPREE AJAX SUBMISSION ======
+const forms = document.querySelectorAll('form[action^="https://formspree.io"]');
+
+forms.forEach(form => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        btn.textContent = 'Sent Successfully! ✓';
+        btn.style.backgroundColor = '#10B981'; // Green success color
+        btn.style.color = '#fff';
+        form.reset();
+        
+        // Reset button and close modal if applicable after 3s
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          btn.style.backgroundColor = '';
+          btn.style.color = '';
+          const modal = form.closest('.modal');
+          if(modal) modal.classList.remove('open');
+        }, 3000);
+      } else {
+        btn.textContent = 'Error. Please try again.';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }, 3000);
+      }
+    } catch (err) {
+      btn.textContent = 'Network Error. Please try again.';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }, 3000);
+    }
+  });
+});
+
 const chatBody = document.getElementById('chatBody');
 const chatInput = document.getElementById('chatInput');
 const chatSend = document.getElementById('chatSend');
