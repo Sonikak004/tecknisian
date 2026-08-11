@@ -353,24 +353,25 @@
           <div class="row"><span>📍</span><div><b>Based in</b>India — working with clients nationwide</div></div>
         </div>
       </div>
-      <div class="form-card">
+      <form action="https://formspree.io/f/xbgrgwkg" method="POST" class="form-card">
+        <input type="hidden" name="_subject" value="New Contact Enquiry!">
         <div class="form-row">
-          <div class="field"><label>Name *</label><input type="text" placeholder="Your name"></div>
-          <div class="field"><label>Phone / WhatsApp *</label><input type="tel" placeholder="+91"></div>
+          <div class="field"><label>Name *</label><input type="text" name="Name" placeholder="Your name" required></div>
+          <div class="field"><label>Phone / WhatsApp *</label><input type="tel" name="Phone" placeholder="+91" required></div>
         </div>
-        <div class="field"><label>Email</label><input type="email" placeholder="you@business.com"></div>
+        <div class="field"><label>Email</label><input type="email" name="Email" placeholder="you@business.com"></div>
         <div class="field">
           <label>What do you need?</label>
-          <select>
+          <select name="Service Requested">
             <option>₹1,000 Starter Website</option>
             <option>Restaurant website</option>
             <option>Business web app</option>
             <option>Something else</option>
           </select>
         </div>
-        <div class="field"><label>Message *</label><textarea placeholder="Tell us a little about your requirements..."></textarea></div>
-        <button class="btn btn-primary btn-block">Send Enquiry</button>
-      </div>
+        <div class="field"><label>Message *</label><textarea name="Message" placeholder="Tell us a little about your requirements..." required></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block">Send Enquiry</button>
+      </form>
     </div>
   </div>
 </section>
