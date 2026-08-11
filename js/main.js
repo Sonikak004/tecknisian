@@ -49,20 +49,6 @@ setTimeout(() => {
   }
 }, 3000);
 
-// Timer countdown logic
-let timerSecs = 5 * 60; // 5 mins
-const timerEl = document.getElementById('offerTimer');
-if(timerEl) {
-  setInterval(() => {
-    if(timerSecs > 0) {
-      timerSecs--;
-      const m = Math.floor(timerSecs / 60).toString().padStart(2, '0');
-      const s = (timerSecs % 60).toString().padStart(2, '0');
-      timerEl.textContent = `⏱ ${m}:${s}`;
-    }
-  }, 1000);
-}
-
 function openCheckout() {
   if(offerModal) offerModal.classList.remove('open');
   setTimeout(() => {

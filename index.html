@@ -447,30 +447,22 @@
   <div class="modal-box offer-box">
     <!-- Header -->
     <div class="offer-header">
-      <span class="offer-badge">🔥 LIMITED OFFER</span>
+      <span class="offer-badge">🔥 FREE WEBSITE MOCKUP</span>
       <div class="offer-header-right">
-        <span class="timer" id="offerTimer">⏱ 05:00</span>
         <button class="modal-close-icon" onclick="document.getElementById('offerModal').classList.remove('open')">✕</button>
       </div>
     </div>
     <!-- Body -->
-    <div class="offer-body">
-      <div class="red-tag">100% FREE • NO CARD NEEDED</div>
+    <div class="offer-body" style="text-align: left;">
+      <h3 style="font-size:1.8rem; margin-bottom:16px; color:var(--ink); line-height:1.25;">See what your business could look like online — before you pay.</h3>
+      <p style="color:var(--ink-soft); font-size:1.05rem; line-height:1.6; margin-bottom:16px;">Tell us about your business and we'll create a custom homepage concept for you.</p>
+      <p style="color:var(--ink-soft); font-size:1.05rem; line-height:1.6; margin-bottom:24px;">You'll be able to see how your business could look with a professional website — completely free, with no obligation to purchase.</p>
       
-      <div class="price-callout">
-        <span class="strike">₹1,000</span>
-        <strong>FREE</strong>
-        <span class="today">today</span>
-      </div>
-
-      <h3>Get a custom homepage mockup for your shop</h3>
-      <p>Tell us about your business and we'll design a real sample homepage — so you see it before you pay for it.</p>
+      <div style="background:#F8FAFC; border:1px solid var(--line); border-radius:8px; padding:16px; font-weight:600; color:var(--ink-soft); margin-bottom:24px;">Limited to 5 free mockups each month.</div>
       
-      <div class="scarcity-text">Only <span>2 of 5</span> free mockups left this month</div>
+      <button class="btn btn-block claim-btn" onclick="openCheckout()">Get My Free Mockup →</button>
       
-      <button class="btn btn-block claim-btn" onclick="openCheckout()">Claim My Free Mockup →</button>
-      
-      <div class="offer-footer">Offer ends when the timer hits zero. <strong>48-hour delivery.</strong></div>
+      <div class="offer-footer" style="text-align:center;">Mockups are usually delivered within 48 hours.</div>
     </div>
   </div>
 </div>
@@ -503,33 +495,31 @@
         <h3>Customer Details</h3>
         <form action="https://formspree.io/f/xbgrgwkg" method="POST" class="mockup-form">
           <input type="hidden" name="_subject" value="New Checkout Request!">
-          <div class="form-row-2">
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" name="Name" required>
-            </div>
-            <div class="form-group">
-              <label>WhatsApp Number</label>
-              <input type="tel" name="WhatsApp Number" required>
-            </div>
-          </div>
-          <div class="form-row-2">
-            <div class="form-group">
-              <label>Business Name</label>
-              <input type="text" name="Business Name" required>
-            </div>
-            <div class="form-group">
-              <label>Business Type</label>
-              <input type="text" name="Business Type" placeholder="e.g. Salon, Clinic" required>
-            </div>
+          <div class="form-group">
+            <label>Business Name *</label>
+            <input type="text" name="Business Name" required>
           </div>
           <div class="form-group">
-            <label>Website/Social Link (Optional)</label>
+            <label>What does your business do? *</label>
+            <input type="text" name="Business Type" placeholder="e.g. Salon, Clinic, Restaurant" required>
+          </div>
+          <div class="form-group">
+            <label>Instagram / Website (Optional)</label>
             <input type="url" name="Link">
           </div>
           <div class="form-group">
-            <label>What do you want your website to achieve?</label>
-            <textarea name="Goal" rows="2" required></textarea>
+            <label>What would you like on your website? (Optional)</label>
+            <textarea name="Goal" rows="2"></textarea>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Phone / WhatsApp *</label>
+              <input type="tel" name="WhatsApp Number" required>
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" name="Email" required>
+            </div>
           </div>
           <button type="submit" class="btn btn-block checkout-btn">Complete Free Order</button>
         </form>
