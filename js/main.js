@@ -74,12 +74,33 @@ function openCheckout() {
 const forms = document.querySelectorAll('form[action^="https://formspree.io"]');
 
 forms.forEach(form => {
+  // Ensure form is relative to contain the overlay
+  form.style.position = 'relative';
+  
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.95); z-index:10; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; border-radius:inherit;';
+  
+  const spinner = document.createElement('div');
+  spinner.innerHTML = '<div style="width:40px;height:40px;border:4px solid #f3f3f3;border-top:4px solid var(--blue);border-radius:50%;animation:spin 1s linear infinite; margin:0 auto;"></div><p style="margin-top:16px;font-weight:600;color:var(--ink);">Sending securely...</p>';
+  spinner.style.textAlign = 'center';
+  
+  const success = document.createElement('div');
+  success.style.display = 'none';
+  success.innerHTML = '<div style="background:#10B981;color:#fff;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;">✓</div><h3 style="color:var(--ink);margin-bottom:8px;font-size:1.4rem;">Sent Successfully!</h3><p style="color:var(--ink-soft);text-align:center;">We will contact you soon.</p>';
+  
+  overlay.appendChild(spinner);
+  overlay.appendChild(success);
+  form.appendChild(overlay);
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn.textContent;
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
+    
+    // Show loading overlay
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
+    spinner.style.display = 'block';
+    success.style.display = 'none';
 
     try {
       const formData = new FormData(form);
@@ -90,33 +111,30 @@ forms.forEach(form => {
       });
       
       if (response.ok) {
-        btn.textContent = 'Sent Successfully! ✓';
-        btn.style.backgroundColor = '#10B981'; // Green success color
-        btn.style.color = '#fff';
+        // Show success state
+        spinner.style.display = 'none';
+        success.style.display = 'block';
+        success.style.textAlign = 'center';
         form.reset();
         
-        // Reset button and close modal if applicable after 3s
+        // Hide overlay after 4 seconds and close modal if inside one
         setTimeout(() => {
-          btn.textContent = originalText;
-          btn.disabled = false;
-          btn.style.backgroundColor = '';
-          btn.style.color = '';
+          overlay.style.opacity = '0';
+          overlay.style.pointerEvents = 'none';
           const modal = form.closest('.modal');
-          if(modal) modal.classList.remove('open');
-        }, 3000);
+          if(modal) {
+            modal.classList.remove('open');
+            // reset overlay for next time
+            setTimeout(() => { spinner.style.display = 'block'; success.style.display = 'none'; }, 500);
+          }
+        }, 4000);
       } else {
-        btn.textContent = 'Error. Please try again.';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.disabled = false;
-        }, 3000);
+        spinner.innerHTML = '<p style="color:#E23E3E;font-weight:600;">Error. Please try again.</p>';
+        setTimeout(() => { overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none'; }, 3000);
       }
     } catch (err) {
-      btn.textContent = 'Network Error. Please try again.';
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }, 3000);
+      spinner.innerHTML = '<p style="color:#E23E3E;font-weight:600;">Network Error. Please try again.</p>';
+      setTimeout(() => { overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none'; }, 3000);
     }
   });
 });

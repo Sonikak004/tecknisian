@@ -563,3 +563,8 @@ footer{background:#0B1226;color:#8A93AC;padding:44px 0 96px;}
   .wa-chip{display:flex; transform:scale(0.85); bottom:-10px; left:-10px; transform-origin:bottom left;}
   .tag-float{display:flex; transform:scale(0.85); top:-10px; right:-10px; transform-origin:top right;}
 }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
